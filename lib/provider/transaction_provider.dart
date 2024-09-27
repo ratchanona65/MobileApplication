@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:myapp/database/transaction_db.dart';
 import 'package:myapp/models/transaction.dart';
 
 class TransactionProvider with ChangeNotifier {
@@ -12,8 +13,13 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
-  void addTransaction(Transactions transaction) {
+  void addTransaction(Transactions transaction) async {
+    var db = TransactionDB(dbName: 'transactions.db');
     transactions.add(transaction);
+
+    var keyID = await db.InsertData(transaction); //บันทึกข้อมูล
+    db.loadAllData(); //ดึงข้อมูล
+    print("keyID: $keyID");
     notifyListeners();
   }
 

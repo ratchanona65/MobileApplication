@@ -8,8 +8,8 @@ class TransactionDB {
   String dbName;
   TransactionDB({required this.dbName});
 
-  Future<Database> openDatabase(dynamic appDirectory) async {
-    Directory appDicrectory = await getApplicationDocumentsDirectory();
+  Future<Database> openDatabase() async {
+    Directory appDirectory = await getApplicationDocumentsDirectory();
     String dbLocation = join(appDirectory.path, dbName);
 
     DatabaseFactory dbFactory = await databaseFactoryIo;
@@ -18,7 +18,7 @@ class TransactionDB {
   }
 
   //บันทึกข้อมูล
-  Future<int> InsertData(Transaction statement) async {
+  Future<int> InsertData(Transactions statement) async {
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store('expense');
 
@@ -26,16 +26,26 @@ class TransactionDB {
     var keyID = store.add(db, {
       "title": statement.title,
       "amount": statement.amount,
-      "data": statement.date.toIso8160String()
+      "data": statement.date.toIso8601String()
     });
     db.close();
     return keyID;
   }
 
   //ดึงข้อมือ
-  loadAllData() async {
+  Future<List<Transactions>> loadAllData() async {
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store('expense');
-    var snapshort = store.find(db);
+    var snapshot = await store.find(db);
+
+    List<Transactions> transactions = [];
+
+    for (var record in snapshot) {
+      transactions.add(Transactions(
+          title: record['title'].toString(),
+          amount: double.parse(record['amount'].toString()),
+          date: DateTime.parse(record['amount'].toString())));
+    }
+    return transactions;
   }
 }
