@@ -25,10 +25,10 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 54, 141, 175)),
+              seedColor: const Color.fromARGB(255, 57, 35, 26)),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'แอพบัญชี'),
+        home: const MyHomePage(title: 'Mobileee'),
       ),
     );
   }
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return ListView.builder(
                 itemCount: count,
                 itemBuilder: (context, index) {
+                  var statement = provider.transactions[index];
                   return Card(
                     elevation: 5,
                     margin:
@@ -98,7 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       trailing: IconButton(
                         icon: const Icon(Icons.delete),
-                        onPressed: () {},
+                        onPressed: () {
+                          provider.deleteTransaction(statement);
+                        },
                       ),
                     ),
                   );

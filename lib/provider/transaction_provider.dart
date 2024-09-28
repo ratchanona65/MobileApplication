@@ -15,16 +15,20 @@ class TransactionProvider with ChangeNotifier {
 
   void addTransaction(Transactions transaction) async {
     var db = TransactionDB(dbName: 'transactions.db');
+    var keyID = await db.InsertData(transaction); //บันทึกข้อมูล
+
     transactions.add(transaction);
 
-    var keyID = await db.InsertData(transaction); //บันทึกข้อมูล
-    db.loadAllData(); //ดึงข้อมูล
     print("keyID: $keyID");
     notifyListeners();
   }
 
-  void deleteTransaction(int index) {
-    transactions.removeAt(index);
+  void deleteTransaction(Transactions statement) async {
+    var db = TransactionDB(dbName: 'transactions.db');
+    await db.deleteData(statement);
+
+    // Reload transactions after deletion
+    transactions = await db.loadAllData();
     notifyListeners();
   }
 }

@@ -16,59 +16,64 @@ class FormScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('แบบฟอร์มข้อมูล'),
         ),
-        body: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'ชื่อรายการ',
-                  ),
-                  autofocus: true,
-                  controller: titleController,
-                  validator: (String? str) {
-                    if (str!.isEmpty) {
-                      return 'กรุณากรอกข้อมูล';
-                    }
-                  },
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    labelText: 'จำนวนเงิน',
-                  ),
-                  keyboardType: TextInputType.number,
-                  controller: amountController,
-                  validator: (String? input) {
-                    try {
-                      double amount = double.parse(input!);
-                      if (amount < 0) {
-                        return 'กรุณากรอกข้อมูลมากกว่า 0';
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'ชื่อรายการ',
+                    ),
+                    autofocus: true,
+                    controller: titleController,
+                    validator: (String? str) {
+                      if (str!.isEmpty) {
+                        return 'กรุณากรอกข้อมูล';
                       }
-                    } catch (e) {
-                      return 'กรุณากรอกข้อมูลเป็นตัวเลข';
-                    }
-                  },
-                ),
-                TextButton(
-                    child: const Text('บันทึก'),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        // create transaction data object
-                        var statement = Transactions(
-                            title: titleController.text,
-                            amount: double.parse(amountController.text),
-                            date: DateTime.now());
-
-                        // add transaction data object to provider
-                        var provider = Provider.of<TransactionProvider>(context,
-                            listen: false);
-
-                        provider.addTransaction(statement);
-
-                        Navigator.pop(context);
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'จำนวนเงิน',
+                    ),
+                    keyboardType: TextInputType.number,
+                    controller: amountController,
+                    validator: (String? input) {
+                      try {
+                        double amount = double.parse(input!);
+                        if (amount < 0) {
+                          return 'กรุณากรอกข้อมูลมากกว่า 0';
+                        }
+                      } catch (e) {
+                        return 'กรุณากรอกข้อมูลเป็นตัวเลข';
                       }
-                    })
-              ],
-            )));
+                    },
+                  ),
+                  TextButton(
+                      child: const Text('บันทึก'),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          // create transaction data object
+
+                          var statement = Transactions(
+                              title: titleController.text,
+                              amount: double.parse(amountController.text),
+                              date: DateTime.now());
+
+                          // add transaction data object to provider
+                          var provider = Provider.of<TransactionProvider>(
+                              context,
+                              listen: false);
+
+                          provider.addTransaction(statement);
+
+                          Navigator.pop(context);
+                        }
+                      })
+                ],
+              )),
+        ));
   }
 }
