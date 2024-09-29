@@ -46,6 +46,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    var provider = Provider.of<TransactionProvider>(context, listen: false);
+    provider.initData();
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -85,23 +93,55 @@ class _MyHomePageState extends State<MyHomePage> {
                   var statement = provider.transactions[index];
                   return Card(
                     elevation: 5,
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-                    child: ListTile(
-                      title: Text(provider.transactions[index].title),
-                      subtitle: Text(provider.transactions[index].date
-                          .toString()), //แสดงเวลาวันที่
-                      leading: CircleAvatar(
-                        radius: 30,
-                        child: FittedBox(
-                          child: Text('${provider.transactions[index].amount}'),
-                        ),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          provider.deleteTransaction(statement);
-                        },
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                          10.0), // เพิ่ม padding ให้เหมาะสม
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start, // จัดให้อยู่ด้านบนของการ์ด
+                        children: [
+                          // ส่วนของรูปภาพ
+                          Container(
+                            width: 100, // ความกว้างของรูป
+                            height: 100, // ความสูงของรูป
+                            color: Colors
+                                .red, // สีพื้นหลังรูป test ไว้ก่อนเดี๋ยวลบบ
+                            child: Center(
+                              child: Text(
+                                'product image', // เดี๋ยวเปลี่ยนเป็นให้อัปโหลด
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                              width: 20), // ระยะห่างระหว่างรูปกับข้อความ
+                          // ส่วนของข้อความ
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  statement.title, // ชื่อรายการ
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text('Amount: ${statement.amount.toString()}'),
+                                Text(
+                                    'Date: ${DateFormat.yMMMd().format(statement.date)}'),
+                              ],
+                            ),
+                          ),
+                          // ปุ่มลบ
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              provider.deleteTransaction(statement);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   );

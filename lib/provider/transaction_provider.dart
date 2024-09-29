@@ -13,11 +13,19 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
+  void initData() async {
+    var db = await TransactionDB(dbName: 'transactions.db');
+    transactions = await db.loadAllData();
+
+    notifyListeners();
+  }
+
   void addTransaction(Transactions transaction) async {
-    var db = TransactionDB(dbName: 'transactions.db');
+    var db = await TransactionDB(dbName: 'transactions.db');
     var keyID = await db.InsertData(transaction); //บันทึกข้อมูล
 
-    transactions.add(transaction);
+    // transactions.add(transaction);
+    transactions = await db.loadAllData();
 
     print("keyID: $keyID");
     notifyListeners();
