@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 57, 35, 26)),
+              seedColor: const Color.fromARGB(255, 2, 4, 55)),
           useMaterial3: true,
         ),
         home: const MyHomePage(title: 'Mobileee'),

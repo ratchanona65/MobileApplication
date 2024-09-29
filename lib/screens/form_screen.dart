@@ -2,6 +2,8 @@ import 'package:myapp/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/provider/transaction_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io'; // นำเข้าจำเป็นสำหรับการใช้งาน File
 
 class FormScreen extends StatelessWidget {
   FormScreen({super.key});
@@ -14,7 +16,7 @@ class FormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('แบบฟอร์มข้อมูล'),
+          title: const Text('กรอกแบบฟอร์มข้อมูล'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -24,7 +26,7 @@ class FormScreen extends StatelessWidget {
                 children: [
                   TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'ชื่อรายการ',
+                      labelText: 'ชื่อแบรนด์',
                     ),
                     autofocus: true,
                     controller: titleController,
@@ -34,9 +36,20 @@ class FormScreen extends StatelessWidget {
                       }
                     },
                   ),
+                  DropdownButtonFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'ระบบปฏิบัติการ',
+                      ),
+                      items: mobileIcon.values.map((key) {
+                        return DropdownMenuItem(
+                            value: key, child: Text(key.title));
+                      }).toList(),
+                      onChanged: (value) {
+                        print(value);
+                      }),
                   TextFormField(
                     decoration: const InputDecoration(
-                      labelText: 'จำนวนเงิน',
+                      labelText: 'ราคาเปิดตัว',
                     ),
                     keyboardType: TextInputType.number,
                     controller: amountController,
@@ -58,8 +71,8 @@ class FormScreen extends StatelessWidget {
                           // create transaction data object
 
                           var statement = Transactions(
-                              title: titleController.text,
-                              amount: double.parse(amountController.text),
+                              brand: titleController.text,
+                              price: double.parse(amountController.text),
                               date: DateTime.now());
 
                           // add transaction data object to provider

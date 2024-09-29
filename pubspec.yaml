@@ -18,12 +18,14 @@ dependencies:
   sembast: ^3.7.4
   path: ^1.9.0
   path_provider: ^2.1.4
+  image_picker: ^1.1.2
 
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+
 
 flutter_lints: ^3.0.0
 

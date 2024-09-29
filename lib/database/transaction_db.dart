@@ -24,9 +24,9 @@ class TransactionDB {
 
     //json
     var keyID = await store.add(db, {
-      "title": statement.title,
-      "amount": statement.amount,
-      "date": statement.date.toIso8601String()
+      "brand": statement.brand,
+      "price": statement.price,
+      "date": statement.date.toIso8601String(),
     });
 
     await db.close();
@@ -46,9 +46,10 @@ class TransactionDB {
     print(snapshot);
     for (var record in snapshot) {
       transactions.add(Transactions(
-          title: record['title'].toString(),
-          amount: double.parse(record['amount'].toString()),
-          date: DateTime.parse(record['date'].toString())));
+        brand: record['brand'].toString(),
+        price: double.parse(record['price'].toString()),
+        date: DateTime.parse(record['date'].toString()),
+      ));
     }
     await db.close(); //เดี๋ยวลบบ
     return transactions;
@@ -65,8 +66,8 @@ class TransactionDB {
       db,
       finder: Finder(
         filter: Filter.and([
-          Filter.equals('title', statement.title),
-          Filter.equals('amount', statement.amount),
+          Filter.equals('brand', statement.brand),
+          Filter.equals('price', statement.price),
           Filter.equals('date', statement.date.toIso8601String())
         ]),
       ),
@@ -74,4 +75,6 @@ class TransactionDB {
     db.close();
     return result;
   }
+
+  //อัพรูปภาพพพพพพพ
 }

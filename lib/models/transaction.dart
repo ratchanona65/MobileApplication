@@ -1,7 +1,27 @@
-class Transactions {
-  final String title;
-  final double amount;
-  final DateTime date;
+import 'package:flutter/material.dart';
 
-  Transactions({required this.title, required this.amount, required this.date});
+class Transactions {
+  final String brand;
+  final double price;
+  final DateTime date;
+  final String? imagePath;
+
+  Transactions(
+      {required this.brand,
+      required this.price,
+      required this.date,
+      this.imagePath});
+}
+
+enum mobileIcon {
+  ios(title: "IOS", image: "assets/img/icon_apple.png"),
+  android(title: "Andriod", image: "assets/img/icon_andriod.png");
+
+  const mobileIcon({
+    required this.title,
+    required this.image,
+  });
+
+  final title;
+  final image;
 }

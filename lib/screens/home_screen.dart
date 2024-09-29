@@ -92,12 +92,12 @@ class _HomeScreenState extends State<HomeScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  statement.title, // ชื่อรายการ
+                                  statement.brand, // ชื่อรายการ
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text('Amount: ${statement.amount.toString()}'),
+                                Text('price: ${statement.price.toString()}'),
                                 Text(
                                     'Date: ${DateFormat.yMMMd().format(statement.date)}'),
                               ],
