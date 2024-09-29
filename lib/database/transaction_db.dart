@@ -45,7 +45,7 @@ class TransactionDB {
       transactions.add(Transactions(
           title: record['title'].toString(),
           amount: double.parse(record['amount'].toString()),
-          date: DateTime.parse(record['amount'].toString())));
+          date: DateTime.parse(record['date'].toString())));
     }
     await db.close(); //เดี๋ยวลบบ
     return transactions;
