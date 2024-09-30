@@ -19,6 +19,7 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.4
   image_picker: ^1.1.2
+  google_fonts: ^6.2.1
 
 
 dev_dependencies:
@@ -33,6 +34,10 @@ flutter_lints: ^3.0.0
 flutter:
   assets:
       - assets/
+      - assets/img/icon2.png
+      - assets/img/icon_question.png
+      - assets/img/icon_apple.png
+      - assets/img/icon_android.png
   uses-material-design: true
 
 flutter_icons:

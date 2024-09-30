@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:myapp/provider/transaction_provider.dart';
 import 'package:myapp/screens/form_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,10 +35,20 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text("แอพโมบาย"),
+          title: Text(
+            "Mobile Application",
+            style: GoogleFonts.kanit(
+                textStyle: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+          ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.add),
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return FormScreen();
@@ -65,24 +76,30 @@ class _HomeScreenState extends State<HomeScreen>
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 15),
                     child: Padding(
-                      padding: const EdgeInsets.all(
-                          10.0), // เพิ่ม padding ให้เหมาะสม
+                      padding: const EdgeInsets.all(10.0), // เพิ่ม padding
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment
                             .start, // จัดให้อยู่ด้านบนของการ์ด
                         children: [
                           // ส่วนของรูปภาพ
                           Container(
-                            width: 100, // ความกว้างของรูป
-                            height: 100, // ความสูงของรูป
-                            color: Colors
-                                .red, // สีพื้นหลังรูป test ไว้ก่อนเดี๋ยวลบบ
-                            child: Center(
-                              child: Text(
-                                'product image', // เดี๋ยวเปลี่ยนเป็นให้อัปโหลด
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
+                            child: Image.asset(statement.imagePath ??
+                                'assets/img/icon_question.png'),
+                            width: 100,
+                            height: 100,
+                            color: Colors.purple,
+                            // width: 100,
+                            // height: 100,
+                            // color: Colors
+                            // .red,  สีพื้นหลังรูป test ไว้ก่อนเดี๋ยวลบบ
+
+                            // child: Center(
+                            //   child: Text(
+                            //     'product image', // เดี๋ยวเปลี่ยนเป็นให้อัปโหลด
+                            //     style: TextStyle(
+                            //         color: const Color.fromARGB(255, 10, 8, 8)),
+                            //   ),
+                            // ),
                           ),
                           const SizedBox(
                               width: 20), // ระยะห่างระหว่างรูปกับข้อความ
@@ -93,11 +110,20 @@ class _HomeScreenState extends State<HomeScreen>
                               children: [
                                 Text(
                                   statement.brand, // ชื่อรายการ
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
+                                  style: GoogleFonts.kanit(
+                                      textStyle: const TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
                                 ),
-                                Text('price: ${statement.price.toString()}'),
+                                Text(
+                                  'ราคา: ${statement.price.toString()}',
+                                  style: GoogleFonts.kanit(
+                                      textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.black)),
+                                ),
                                 Text(
                                     'Date: ${DateFormat.yMMMd().format(statement.date)}'),
                               ],

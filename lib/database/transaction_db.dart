@@ -27,6 +27,7 @@ class TransactionDB {
       "brand": statement.brand,
       "price": statement.price,
       "date": statement.date.toIso8601String(),
+      "imagePath": statement.imagePath,
     });
 
     await db.close();
@@ -49,6 +50,7 @@ class TransactionDB {
         brand: record['brand'].toString(),
         price: double.parse(record['price'].toString()),
         date: DateTime.parse(record['date'].toString()),
+        imagePath: record['imagePath'].toString(),
       ));
     }
     await db.close(); //เดี๋ยวลบบ
@@ -68,13 +70,12 @@ class TransactionDB {
         filter: Filter.and([
           Filter.equals('brand', statement.brand),
           Filter.equals('price', statement.price),
-          Filter.equals('date', statement.date.toIso8601String())
+          Filter.equals('date', statement.date.toIso8601String()),
+          Filter.equals('imagePath', statement.imagePath)
         ]),
       ),
     );
     db.close();
     return result;
   }
-
-  //อัพรูปภาพพพพพพพ
 }

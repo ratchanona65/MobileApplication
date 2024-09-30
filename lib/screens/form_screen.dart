@@ -9,8 +9,10 @@ class FormScreen extends StatelessWidget {
   FormScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+  final brandController = TextEditingController(); //ชื่อรุ่น
+  final priceController = TextEditingController(); //ราคา
+
+  String iconController = "assets/img/icon_question.png"; //เริ่มต้นเป็น ?
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class FormScreen extends StatelessWidget {
                       labelText: 'ชื่อแบรนด์',
                     ),
                     autofocus: true,
-                    controller: titleController,
+                    controller: brandController,
                     validator: (String? str) {
                       if (str!.isEmpty) {
                         return 'กรุณากรอกข้อมูล';
@@ -37,6 +39,7 @@ class FormScreen extends StatelessWidget {
                     },
                   ),
                   DropdownButtonFormField(
+                      value: mobileIcon.ques,
                       decoration: const InputDecoration(
                         labelText: 'ระบบปฏิบัติการ',
                       ),
@@ -45,14 +48,14 @@ class FormScreen extends StatelessWidget {
                             value: key, child: Text(key.title));
                       }).toList(),
                       onChanged: (value) {
-                        print(value);
+                        iconController = value!.imagePath.toString();
                       }),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: 'ราคาเปิดตัว',
                     ),
                     keyboardType: TextInputType.number,
-                    controller: amountController,
+                    controller: priceController,
                     validator: (String? input) {
                       try {
                         double amount = double.parse(input!);
@@ -71,9 +74,13 @@ class FormScreen extends StatelessWidget {
                           // create transaction data object
 
                           var statement = Transactions(
-                              brand: titleController.text,
-                              price: double.parse(amountController.text),
-                              date: DateTime.now());
+                            brand: brandController.text,
+                            price: double.parse(priceController.text),
+                            date: DateTime.now(),
+                            imagePath: iconController.isNotEmpty
+                                ? iconController
+                                : 'assets/img/icon_question.png',
+                          );
 
                           // add transaction data object to provider
                           var provider = Provider.of<TransactionProvider>(
