@@ -10,7 +10,8 @@ class FormScreen extends StatelessWidget {
   FormScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
-  final brandController = TextEditingController(); //ชื่อรุ่น
+  final brandController = TextEditingController(); //ชื่อแบรนด์
+  final modelController = TextEditingController(); //ชื่อรุ่น
   final priceController = TextEditingController(); //ราคา
 
   String iconController = "assets/img/icon_question.png"; //เริ่มต้นเป็น ?
@@ -52,6 +53,18 @@ class FormScreen extends StatelessWidget {
                     ),
                     autofocus: false, //เปิด -ปิด แป้น
                     controller: brandController,
+                    validator: (String? str) {
+                      if (str!.isEmpty) {
+                        return 'กรุณากรอกข้อมูล';
+                      }
+                    },
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'ชื่อรุ่น',
+                    ),
+                    autofocus: false, //เปิด -ปิด แป้น
+                    controller: modelController,
                     validator: (String? str) {
                       if (str!.isEmpty) {
                         return 'กรุณากรอกข้อมูล';
@@ -108,6 +121,7 @@ class FormScreen extends StatelessWidget {
 
                           var statement = Transactions(
                             brand: brandController.text,
+                            model: modelController.text,
                             price: double.parse(priceController.text),
                             date: DateTime.now(),
                             imagePath: iconController.isNotEmpty

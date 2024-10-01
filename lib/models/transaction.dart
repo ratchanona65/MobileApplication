@@ -1,5 +1,6 @@
 class Transactions {
   final String brand;
+  final String model;
   final double price;
   final DateTime date;
   final String imagePath;
@@ -7,6 +8,7 @@ class Transactions {
 
   Transactions({
     required this.brand,
+    required this.model,
     required this.price,
     required this.date,
     required this.imagePath,

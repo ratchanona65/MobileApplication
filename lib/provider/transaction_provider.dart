@@ -7,9 +7,7 @@ import 'package:myapp/models/transaction.dart';
 
 class TransactionProvider with ChangeNotifier {
   List<Transactions> transactions = [
-    // Transaction(brand: 'Samsung', price: 29000, date: DateTime.now()),
-    // Transaction(title: 'เสื้อ', amount: 500, date: DateTime.now()),
-    // Transaction(title: 'รองเท้า', amount: 1000, date: DateTime.now()),
+    // Transaction(brand: 'Samsung',model: 'galaxy s24', price: 29000, date: DateTime.now()),
   ];
 
   List<Transactions> getTransaction() {

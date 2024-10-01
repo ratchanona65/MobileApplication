@@ -26,6 +26,7 @@ class TransactionDB {
     var keyID = await store.add(db, {
       "keyID": statement.keyID,
       "brand": statement.brand,
+      "model": statement.model,
       "price": statement.price,
       "date": statement.date.toIso8601String(),
       "imagePath": statement.imagePath,
@@ -50,6 +51,7 @@ class TransactionDB {
       transactions.add(Transactions(
         keyID: record.key,
         brand: record['brand'].toString(),
+        model: record['model'].toString(),
         price: double.parse(record['price'].toString()),
         date: DateTime.parse(record['date'].toString()),
         imagePath: record['imagePath'].toString(),

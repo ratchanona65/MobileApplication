@@ -58,6 +58,10 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: const Color.fromARGB(255, 24, 26, 113),
         body: TabBarView(children: [HomeScreen(), FormScreen()]),
         bottomNavigationBar: TabBar(
+          labelStyle: GoogleFonts.kanit(
+            fontSize: 18, // ขนาดฟอนต์
+            fontWeight: FontWeight.bold, // หนา
+          ),
           tabs: [
             Tab(
               icon: Icon(
@@ -65,32 +69,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white,
               ),
               text: "หน้าแรก",
-
-              // style: GoogleFonts.kanit(
-              //       textStyle: const TextStyle(
-              //           fontSize: 22,
-              //           fontWeight: FontWeight.bold,
-              //           color: Colors.white)),
             ),
             Tab(
               icon: Icon(Icons.add, color: Colors.white),
               text: "เพิ่มข้อมูล",
             )
           ],
+
           labelColor: const Color.fromARGB(
               255, 59, 131, 255), // สีของข้อความที่ถูกเลือก
           unselectedLabelColor: const Color.fromARGB(
               255, 246, 246, 246), // สีของข้อความที่ไม่ถูกเลือก
-          indicatorColor:
-              const Color.fromARGB(255, 251, 251, 251), // สีของ indicator
-          labelStyle: GoogleFonts.kanit(
-            textStyle: TextStyle(
-              fontSize: 18, // ขนาดฟอนต์
-              //fontWeight: FontWeight.bold, // น้ำหนักฟอนต์
-            ),
-          ),
-
-          //****************
+          indicatorColor: const Color.fromARGB(
+              255, 251, 251, 251), // สีของขีดด้านใต้เมนูที่เลือก
         ),
       ),
     );
