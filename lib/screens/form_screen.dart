@@ -1,9 +1,12 @@
+import 'package:myapp/main.dart';
 import 'package:myapp/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/provider/transaction_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io'; // นำเข้าจำเป็นสำหรับการใช้งาน File
+import 'package:google_fonts/google_fonts.dart';
 
 class FormScreen extends StatelessWidget {
   FormScreen({super.key});
@@ -18,7 +21,17 @@ class FormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('กรอกแบบฟอร์มข้อมูล'),
+          iconTheme:
+              IconThemeData(color: Colors.white), //เปลี่ยนสีไอคอน <- (กลับ)
+          title: Text(
+            'กรอกแบบฟอร์มข้อมูล',
+            style: GoogleFonts.kanit(
+                textStyle: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white)),
+          ),
+          backgroundColor: const Color.fromARGB(255, 24, 26, 113),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -30,7 +43,7 @@ class FormScreen extends StatelessWidget {
                     decoration: const InputDecoration(
                       labelText: 'ชื่อแบรนด์',
                     ),
-                    autofocus: true,
+                    autofocus: false, //เปิด -ปิด แป้น
                     controller: brandController,
                     validator: (String? str) {
                       if (str!.isEmpty) {
@@ -89,7 +102,16 @@ class FormScreen extends StatelessWidget {
 
                           provider.addTransaction(statement);
 
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MyHomePage(
+                                  title: "",
+                                );
+                              },
+                            ),
+                          );
                         }
                       })
                 ],

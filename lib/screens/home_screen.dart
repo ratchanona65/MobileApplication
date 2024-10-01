@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/provider/transaction_provider.dart';
 import 'package:myapp/screens/form_screen.dart';
@@ -34,25 +35,48 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text(
-            "Mobile Application",
-            style: GoogleFonts.kanit(
-                textStyle: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
+          backgroundColor: const Color.fromARGB(
+              255, 24, 26, 113), //Theme.of(context).colorScheme.primary,
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/img/icon_app.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Mobile Application",
+                style: GoogleFonts.kanit(
+                    textStyle: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              )
+            ],
           ),
           actions: [
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.add,
+            //     color: Colors.white,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //       return FormScreen();
+            //     }));
+            //   },
+            // ),
+
             IconButton(
               icon: const Icon(
-                Icons.add,
+                Icons.exit_to_app,
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return FormScreen();
-                }));
+                SystemNavigator.pop();
               },
             ),
           ],
@@ -83,23 +107,24 @@ class _HomeScreenState extends State<HomeScreen>
                         children: [
                           // ส่วนของรูปภาพ
                           Container(
-                            child: Image.asset(statement.imagePath ??
-                                'assets/img/icon_question.png'),
                             width: 70,
-                            height: 70,
-                            color: Colors.purple,
-                            // width: 100,
-                            // height: 100,
-                            // color: Colors
-                            // .red,  สีพื้นหลังรูป test ไว้ก่อนเดี๋ยวลบบ
+                            height: 100,
+                            // color: const Color.fromARGB(255, 226, 68, 68), //สี Container ใหญ่
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: Image.asset(
+                                    statement.imagePath,
+                                    width: 60,
+                                    height: 60,
+                                  ),
 
-                            // child: Center(
-                            //   child: Text(
-                            //     'product image', // เดี๋ยวเปลี่ยนเป็นให้อัปโหลด
-                            //     style: TextStyle(
-                            //         color: const Color.fromARGB(255, 10, 8, 8)),
-                            //   ),
-                            // ),
+                                  // color:
+                                  //     const Color.fromARGB(255, 116, 238, 116),  //สี Container ของ Icon
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                               width: 20), // ระยะห่างระหว่างรูปกับข้อความ
@@ -117,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen>
                                           color: Colors.black)),
                                 ),
                                 Text(
-                                  'ราคา: ${statement.price.toString()}',
+                                  'ราคาเปิดตัว: ${statement.price.toString()} ฿',
                                   style: GoogleFonts.kanit(
                                       textStyle: const TextStyle(
                                           fontSize: 18,

@@ -24,6 +24,7 @@ class TransactionDB {
 
     //json
     var keyID = await store.add(db, {
+      "keyID": statement.keyID,
       "brand": statement.brand,
       "price": statement.price,
       "date": statement.date.toIso8601String(),

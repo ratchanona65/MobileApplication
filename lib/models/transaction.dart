@@ -15,8 +15,8 @@ class Transactions {
 }
 
 enum mobileIcon {
-  android(title: "Android", imagePath: "assets/img/icon_android.png"),
   ques(title: "-", imagePath: "assets/img/icon_question.png"),
+  android(title: "Android", imagePath: "assets/img/icon_android.png"),
   ios(title: "IOS", imagePath: "assets/img/icon_apple.png");
 
   const mobileIcon({

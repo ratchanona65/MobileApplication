@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:myapp/provider/transaction_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/screens/home_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          scaffoldBackgroundColor: const Color.fromARGB(255, 220, 226, 255),
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 2, 4, 55)),
+              seedColor: const Color.fromARGB(255, 11, 1, 72)),
           useMaterial3: true,
         ),
         home: const MyHomePage(title: 'Mobileee'),
@@ -50,6 +52,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreen();
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 24, 26, 113),
+        body: TabBarView(children: [HomeScreen(), FormScreen()]),
+        bottomNavigationBar: TabBar(
+          tabs: [
+            Tab(
+              icon: Icon(
+                Icons.list,
+                color: Colors.white,
+              ),
+              text: "หน้าแรก",
+
+              // style: GoogleFonts.kanit(
+              //       textStyle: const TextStyle(
+              //           fontSize: 22,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white)),
+            ),
+            Tab(
+              icon: Icon(Icons.add, color: Colors.white),
+              text: "เพิ่มข้อมูล",
+            )
+          ],
+          labelColor: const Color.fromARGB(
+              255, 59, 131, 255), // สีของข้อความที่ถูกเลือก
+          unselectedLabelColor: const Color.fromARGB(
+              255, 246, 246, 246), // สีของข้อความที่ไม่ถูกเลือก
+          indicatorColor:
+              const Color.fromARGB(255, 251, 251, 251), // สีของ indicator
+          labelStyle: GoogleFonts.kanit(
+            textStyle: TextStyle(
+              fontSize: 18, // ขนาดฟอนต์
+              //fontWeight: FontWeight.bold, // น้ำหนักฟอนต์
+            ),
+          ),
+
+          //****************
+        ),
+      ),
+    );
   }
 }

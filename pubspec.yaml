@@ -34,7 +34,7 @@ flutter_lints: ^3.0.0
 flutter:
   assets:
       - assets/
-      - assets/img/icon2.png
+      - assets/img/icon_app.png
       - assets/img/icon_question.png
       - assets/img/icon_apple.png
       - assets/img/icon_android.png
@@ -43,4 +43,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/img/icon2.png"
+  image_path: "assets/img/icon_app.png"
