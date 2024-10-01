@@ -38,6 +38,7 @@ flutter:
       - assets/img/icon_question.png
       - assets/img/icon_apple.png
       - assets/img/icon_android.png
+      - assets/img/icon_input.png
   uses-material-design: true
 
 flutter_icons:

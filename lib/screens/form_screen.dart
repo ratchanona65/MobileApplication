@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/provider/transaction_provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io'; // นำเข้าจำเป็นสำหรับการใช้งาน File
 import 'package:google_fonts/google_fonts.dart';
 
 class FormScreen extends StatelessWidget {
@@ -23,14 +21,23 @@ class FormScreen extends StatelessWidget {
         appBar: AppBar(
           iconTheme:
               IconThemeData(color: Colors.white), //เปลี่ยนสีไอคอน <- (กลับ)
-          title: Text(
-            'กรอกแบบฟอร์มข้อมูล',
-            style: GoogleFonts.kanit(
-                textStyle: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'กรอกแบบฟอร์มข้อมูล',
+                style: GoogleFonts.kanit(
+                    textStyle: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              ),
+
+              const SizedBox(width: 8), // เพิ่มระยะห่างระหว่างข้อความกับไอคอน
+              const Icon(Icons.edit, color: Colors.white), // ไอคอนปากกา
+            ],
           ),
+
           backgroundColor: const Color.fromARGB(255, 24, 26, 113),
         ),
         body: Padding(
@@ -81,7 +88,20 @@ class FormScreen extends StatelessWidget {
                     },
                   ),
                   TextButton(
-                      child: const Text('บันทึก'),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 44, 45, 136),
+                        foregroundColor: Colors.white, // เปลี่ยนสี text
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                      ),
+                      child: Text(
+                        'บันทึก',
+                        style: GoogleFonts.kanit(
+                          fontSize: 18, // ขนาดฟอนต์
+                        ),
+                      ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           // create transaction data object
