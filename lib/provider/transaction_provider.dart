@@ -34,9 +34,9 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteTransaction(Transactions statement) async {
+  void deleteTransaction(int? index) async {
     var db = TransactionDB(dbName: 'transactions.db');
-    await db.deleteData(statement);
+    await db.deleteData(index);
 
     // Reload transactions after deletion
     transactions = await db.loadAllData();

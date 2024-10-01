@@ -3,12 +3,14 @@ class Transactions {
   final double price;
   final DateTime date;
   final String imagePath;
+  final int? keyID;
 
   Transactions({
     required this.brand,
     required this.price,
     required this.date,
     required this.imagePath,
+    this.keyID,
   });
 }
 

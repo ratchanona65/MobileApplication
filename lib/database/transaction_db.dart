@@ -47,6 +47,7 @@ class TransactionDB {
     print(snapshot);
     for (var record in snapshot) {
       transactions.add(Transactions(
+        keyID: record.key,
         brand: record['brand'].toString(),
         price: double.parse(record['price'].toString()),
         date: DateTime.parse(record['date'].toString()),
@@ -58,24 +59,11 @@ class TransactionDB {
   }
 
   //ลบข้อมูล
-// ลบข้อมูลโดยใช้ Transactions
-  Future<int> deleteData(Transactions statement) async {
+  deleteData(int? index) async {
     var db = await openDatabase();
     var store = intMapStoreFactory.store('expense');
 
-    // Use the properties of the transaction to find and delete it
-    var result = await store.delete(
-      db,
-      finder: Finder(
-        filter: Filter.and([
-          Filter.equals('brand', statement.brand),
-          Filter.equals('price', statement.price),
-          Filter.equals('date', statement.date.toIso8601String()),
-          Filter.equals('imagePath', statement.imagePath)
-        ]),
-      ),
-    );
-    db.close();
-    return result;
+    await store.delete(db,
+        finder: Finder(filter: Filter.equals(Field.key, index)));
   }
 }

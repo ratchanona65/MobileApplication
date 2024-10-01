@@ -85,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen>
                           Container(
                             child: Image.asset(statement.imagePath ??
                                 'assets/img/icon_question.png'),
-                            width: 100,
-                            height: 100,
+                            width: 70,
+                            height: 70,
                             color: Colors.purple,
                             // width: 100,
                             // height: 100,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen>
                           IconButton(
                             icon: const Icon(Icons.delete),
                             onPressed: () {
-                              provider.deleteTransaction(statement);
+                              provider.deleteTransaction(statement.keyID);
                             },
                           ),
                         ],
