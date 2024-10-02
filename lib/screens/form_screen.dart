@@ -16,6 +16,8 @@ class FormScreen extends StatelessWidget {
 
   String iconController = "assets/img/icon_question.png"; //เริ่มต้นเป็น ?
 
+  String colorsModelController = "0xFF000000"; //เริ่มต้นเป็น
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +61,7 @@ class FormScreen extends StatelessWidget {
                       }
                     },
                   ),
+                  const SizedBox(height: 15),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: 'ชื่อรุ่น',
@@ -71,6 +74,7 @@ class FormScreen extends StatelessWidget {
                       }
                     },
                   ),
+                  const SizedBox(height: 15),
                   DropdownButtonFormField(
                       value: mobileIcon.ques,
                       decoration: const InputDecoration(
@@ -83,6 +87,21 @@ class FormScreen extends StatelessWidget {
                       onChanged: (value) {
                         iconController = value!.imagePath.toString();
                       }),
+                  const SizedBox(height: 15),
+                  DropdownButtonFormField(
+                      //---------------------------------------------------สีโทรศัพท์
+                      value: mobileColors.white,
+                      decoration: const InputDecoration(
+                        labelText: 'สี',
+                      ),
+                      items: mobileColors.values.map((key) {
+                        return DropdownMenuItem(
+                            value: key, child: Text(key.title));
+                      }).toList(),
+                      onChanged: (value) {
+                        colorsModelController = value!.colorsHex.toString();
+                      }),
+                  const SizedBox(height: 15),
                   TextFormField(
                     decoration: const InputDecoration(
                       labelText: 'ราคาเปิดตัว',
@@ -100,6 +119,7 @@ class FormScreen extends StatelessWidget {
                       }
                     },
                   ),
+                  const SizedBox(height: 15),
                   TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 44, 45, 136),
@@ -122,6 +142,9 @@ class FormScreen extends StatelessWidget {
                           var statement = Transactions(
                             brand: brandController.text,
                             model: modelController.text,
+                            colorsModel: colorsModelController.isNotEmpty
+                                ? colorsModelController
+                                : '0xFF000000',
                             price: double.parse(priceController.text),
                             date: DateTime.now(),
                             imagePath: iconController.isNotEmpty

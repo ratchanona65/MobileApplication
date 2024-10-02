@@ -50,10 +50,11 @@ class _HomeScreenState extends State<HomeScreen>
               Text(
                 "Mobile Application",
                 style: GoogleFonts.kanit(
-                    textStyle: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
+                  textStyle: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
               )
             ],
           ),
@@ -146,6 +147,23 @@ class _HomeScreenState extends State<HomeScreen>
                                   style: GoogleFonts.kanit(
                                       textStyle: const TextStyle(
                                           fontSize: 22, color: Colors.black)),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'สี: ',
+                                      style: GoogleFonts.kanit(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.black)),
+                                    ),
+                                    Container(
+                                      color: Color(statement.),
+                                      width: 10,
+                                      height: 10,
+                                    )
+                                  ],
                                 ),
                                 Text(
                                   'ราคาเปิดตัว: ${statement.price.toString()} ฿',

@@ -52,6 +52,7 @@ class TransactionDB {
         keyID: record.key,
         brand: record['brand'].toString(),
         model: record['model'].toString(),
+        colorsModel: record['colorsHex'].toString(),
         price: double.parse(record['price'].toString()),
         date: DateTime.parse(record['date'].toString()),
         imagePath: record['imagePath'].toString(),
