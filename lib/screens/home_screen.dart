@@ -6,6 +6,8 @@ import 'package:myapp/screens/form_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:myapp/models/mobile_colors.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,8 +21,12 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
     var provider = Provider.of<TransactionProvider>(context, listen: false);
     provider.initData();
   }
@@ -59,18 +65,6 @@ class _HomeScreenState extends State<HomeScreen>
             ],
           ),
           actions: [
-            // IconButton(
-            //   icon: const Icon(
-            //     Icons.add,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {
-            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //       return FormScreen();
-            //     }));
-            //   },
-            // ),
-
             IconButton(
               icon: const Icon(
                 Icons.exit_to_app,
@@ -151,27 +145,36 @@ class _HomeScreenState extends State<HomeScreen>
                                 Row(
                                   children: [
                                     Text(
-                                      'สี: ',
+                                      'สี: ${getColorName(statement.colorsModel)}',
                                       style: GoogleFonts.kanit(
-                                          textStyle: const TextStyle(
-                                              fontSize: 18,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Colors.black)),
+                                        textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ),
+                                    const SizedBox(width: 10),
                                     Container(
-                                      color: Color(statement.),
-                                      width: 10,
-                                      height: 10,
-                                    )
+                                      width: 15,
+                                      height: 15,
+                                      decoration: BoxDecoration(
+                                        color: Color(int.parse(statement
+                                            .colorsModel)), // ใช้สีจาก Transaction
+                                        borderRadius: BorderRadius.circular(
+                                            1), // กำหนดขอบมน
+                                        border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255, 55, 54, 54),
+                                            width: 1), // ถ้าต้องการขอบ
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Text(
                                   'ราคาเปิดตัว: ${statement.price.toString()} ฿',
                                   style: GoogleFonts.kanit(
                                       textStyle: const TextStyle(
-                                          fontSize: 18,
-                                          // fontWeight: FontWeight.bold,
-                                          color: Colors.black)),
+                                          fontSize: 18, color: Colors.black)),
                                 ),
                                 Text(
                                     'Date: ${DateFormat.yMMMd().format(statement.date)}'),

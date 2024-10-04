@@ -1,10 +1,12 @@
+import 'dart:ui';
+
 class Transactions {
   final String brand;
   final String model;
   final double price;
   final DateTime date;
   final String imagePath;
-  final String colorsModel;
+  String colorsModel;
   final int? keyID;
 
   Transactions({
@@ -32,26 +34,26 @@ enum mobileIcon {
   final imagePath;
 }
 
-enum mobileColors {
-  white(title: "White", colorsHex: "0xFFFFFFFF"),
-  balck(title: "Black", colorsHex: "0xFF000000"),
-  spaceGray(title: "SpaceGray", colorsHex: "0xFF757575"), //
-  silver(title: "Silver", colorsHex: "0xFFC0C0C0"),
-  blue(title: "Blue", colorsHex: "0xFF0000FF"),
-  gold(title: "Gold", colorsHex: "0xFFFFD700"),
-  midnightGreen(title: "Midnight Green", colorsHex: "0xFF004953"), //เขียวมรกต
-  purple(title: "Purple", colorsHex: "0xFF800080"),
-  red(title: "Red", colorsHex: "0xFFFF0000"),
-  roseGold(title: "Rose Gold", colorsHex: "0xFFB76E79"),
-  yellow(title: "Yellow", colorsHex: "0xFFFFFF00"),
-  green(title: "Green", colorsHex: "0xFF228B22"),
-  ;
+// enum mobileColors {
+//   white(title: "White", color: "0xffffffff"),
+//   black(title: "Black", color: "0xff000000"),
+//   spaceGray(title: "SpaceGray", color: "0xff757575"),
+//   silver(title: "Silver", color: "0xffc0c0c0"),
+//   blue(title: "Blue", color: "0xff0000ff"),
+//   gold(title: "Gold", color: "0xffffd700"),
+//   midnightGreen(title: "Midnight Green", color: "0xff004953"),
+//   purple(title: "Purple", color: "0xff800080"),
+//   red(title: "Red", color: "0xffff0000"),
+//   roseGold(title: "Rose Gold", color: "0xffb76e79"),
+//   yellow(title: "Yellow", color: "0xffffff00"),
+//   green(title: "Green", color: "0xff228b22"),
+//   ;
 
-  const mobileColors({
-    required this.title,
-    required this.colorsHex,
-  });
+//   const mobileColors({
+//     required this.title,
+//     required this.color,
+//   });
 
-  final title;
-  final colorsHex;
-}
+//   final String title;
+//   final String color; // เปลี่ยนเป็น String
+// }

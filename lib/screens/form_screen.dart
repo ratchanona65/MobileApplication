@@ -1,13 +1,20 @@
 import 'package:myapp/main.dart';
 import 'package:myapp/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/provider/transaction_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myapp/models/mobile_colors.dart'; // เพิ่ม import สำหรับ mobile_colors
 
-class FormScreen extends StatelessWidget {
+class FormScreen extends StatefulWidget {
   FormScreen({super.key});
+
+  @override
+  _FormScreenState createState() => _FormScreenState();
+}
+
+class _FormScreenState extends State<FormScreen> {
+  // FormScreen({super.key});
 
   final formKey = GlobalKey<FormState>();
   final brandController = TextEditingController(); //ชื่อแบรนด์
@@ -17,6 +24,7 @@ class FormScreen extends StatelessWidget {
   String iconController = "assets/img/icon_question.png"; //เริ่มต้นเป็น ?
 
   String colorsModelController = "0xFF000000"; //เริ่มต้นเป็น
+  String? selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class FormScreen extends StatelessWidget {
           backgroundColor: const Color.fromARGB(255, 24, 26, 113),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(15.0),
           child: Form(
               key: formKey,
               child: Column(
@@ -88,19 +96,36 @@ class FormScreen extends StatelessWidget {
                         iconController = value!.imagePath.toString();
                       }),
                   const SizedBox(height: 15),
-                  DropdownButtonFormField(
-                      //---------------------------------------------------สีโทรศัพท์
-                      value: mobileColors.white,
-                      decoration: const InputDecoration(
-                        labelText: 'สี',
-                      ),
-                      items: mobileColors.values.map((key) {
-                        return DropdownMenuItem(
-                            value: key, child: Text(key.title));
-                      }).toList(),
-                      onChanged: (value) {
-                        colorsModelController = value!.colorsHex.toString();
-                      }),
+                  DropdownButtonFormField<String>(
+                    hint: Text("สีเครื่อง"),
+                    value: selectedColor,
+                    items: MobileColors.values.map((color) {
+                      return DropdownMenuItem<String>(
+                        value:
+                            "0x${color.color.value.toRadixString(16)}", // เก็บค่าสีในรูปแบบ String
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              color: color.color, // แสดงสี
+                            ),
+                            SizedBox(width: 10),
+                            Text(color.title), // แสดงชื่อสี
+                          ],
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? value) {
+                      if (value != null) {
+                        setState(() {
+                          selectedColor = value; // บันทึกสีที่เลือก
+                          colorsModelController =
+                              value; // เก็บค่าที่เลือกไว้ใน colorsModelController
+                        });
+                      }
+                    },
+                  ),
                   const SizedBox(height: 15),
                   TextFormField(
                     decoration: const InputDecoration(
@@ -144,7 +169,7 @@ class FormScreen extends StatelessWidget {
                             model: modelController.text,
                             colorsModel: colorsModelController.isNotEmpty
                                 ? colorsModelController
-                                : '0xFF000000',
+                                : '0xFF000000', // ค่าเริ่มต้นหากไม่มีการเลือกสี
                             price: double.parse(priceController.text),
                             date: DateTime.now(),
                             imagePath: iconController.isNotEmpty

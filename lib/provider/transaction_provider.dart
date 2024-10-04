@@ -40,6 +40,4 @@ class TransactionProvider with ChangeNotifier {
     transactions = await db.loadAllData();
     notifyListeners();
   }
-
-  //อัพโหลดรูป
 }
