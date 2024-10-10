@@ -29,7 +29,6 @@ class TransactionDB {
       "brand": statement.brand,
       "model": statement.model,
       "price": statement.price,
-      "date": statement.date.toIso8601String(),
       "imagePath": statement.imagePath,
       "colorsHex": statement.colorsModel
     });
@@ -56,7 +55,6 @@ class TransactionDB {
         model: record['model'].toString(),
         colorsModel: record['colorsHex'].toString(),
         price: double.parse(record['price'].toString()),
-        date: DateTime.parse(record['date'].toString()),
         imagePath: record['imagePath'].toString(),
       ));
     }
@@ -71,5 +69,21 @@ class TransactionDB {
 
     await store.delete(db,
         finder: Finder(filter: Filter.equals(Field.key, index)));
+  }
+
+  updateDatabase(Transactions statement) async {
+    var db = await this.openDatabase();
+    var store = intMapStoreFactory.store('expense');
+    var filter = Finder(filter: Filter.equals(Field.key, statement.keyID));
+    var result = store.update(db, finder: filter, {
+      "keyID": statement.keyID,
+      "brand": statement.brand,
+      "model": statement.model,
+      "price": statement.price,
+      "imagePath": statement.imagePath,
+      "colorsHex": statement.colorsModel
+    });
+    db.close();
+    print('update result: $result');
   }
 }

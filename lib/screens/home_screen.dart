@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/provider/transaction_provider.dart';
+import 'package:myapp/screens/edit_screen.dart';
 import 'package:myapp/screens/form_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,8 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(
-              255, 24, 26, 113), //Theme.of(context).colorScheme.primary,
+          backgroundColor: const Color.fromARGB(255, 24, 26, 113),
           title: Row(
             children: [
               Image.asset(
@@ -160,12 +160,12 @@ class _HomeScreenState extends State<HomeScreen>
                                       decoration: BoxDecoration(
                                         color: Color(int.parse(statement
                                             .colorsModel)), // ใช้สีจาก Transaction
-                                        borderRadius: BorderRadius.circular(
-                                            1), // กำหนดขอบมน
+                                        borderRadius:
+                                            BorderRadius.circular(1), // ขอบมน
                                         border: Border.all(
                                             color: const Color.fromARGB(
                                                 255, 55, 54, 54),
-                                            width: 1), // ถ้าต้องการขอบ
+                                            width: 1),
                                       ),
                                     ),
                                   ],
@@ -176,17 +176,31 @@ class _HomeScreenState extends State<HomeScreen>
                                       textStyle: const TextStyle(
                                           fontSize: 18, color: Colors.black)),
                                 ),
-                                Text(
-                                    'Date: ${DateFormat.yMMMd().format(statement.date)}'),
                               ],
                             ),
                           ),
-                          // ปุ่มลบ
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              provider.deleteTransaction(statement.keyID);
-                            },
+
+                          Column(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  provider.deleteTransaction(statement.keyID);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditScreen(transaction: statement),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -196,8 +210,6 @@ class _HomeScreenState extends State<HomeScreen>
               );
             }
           },
-        )
-        // This trailing comma makes auto-formatting nicer for build methods.
-        );
+        ));
   }
 }
