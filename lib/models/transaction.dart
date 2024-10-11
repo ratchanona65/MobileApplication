@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 class Transactions {
   final String brand;
   final String model;
